@@ -1,5 +1,6 @@
 package pasquale.alberico.GestioneEventi.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "app_user")
@@ -35,6 +37,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     public Role role=Role.USER;
     public String avatarUrl;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Booking> bookings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

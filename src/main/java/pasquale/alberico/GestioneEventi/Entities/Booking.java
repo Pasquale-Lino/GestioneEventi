@@ -13,12 +13,28 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 public class Booking {
+
     @Id
     @GeneratedValue
     private UUID id;
+    
+    @Column(name = "event_id", insertable = false, updatable = false)
     private UUID eventId;
-    private UUID employeeId; // user id che prenota
-    private LocalDate bookingDate; // data per la prenotazione richiesta
+
+    @Column(name = "user_id", insertable = false, updatable = false)
+    private UUID employeeId;
+
+    // Relazione ManyToOne
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private LocalDate bookingDate;
+
     @Column(length = 1000)
     private String notes;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,11 @@ public class Event {
     private LocalDate date;
     private String location;
     private int seatsAvailable;
-    //riferimento all'organizer(unidirezionele)
+    // riferimeto all'organizer (unidirezionale)
     private UUID organizerId;
+
+    // RELAZIONE CON BOOKING
+    @OneToMany(mappedBy = "event")
+    private List<Booking> bookings;
+
 }
