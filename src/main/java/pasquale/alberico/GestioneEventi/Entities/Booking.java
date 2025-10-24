@@ -1,5 +1,6 @@
 package pasquale.alberico.GestioneEventi.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -27,10 +28,12 @@ public class Booking {
     // Relazione ManyToOne
     @ManyToOne
     @JoinColumn(name = "event_id")
+    @JsonIgnoreProperties("bookings")
     private Event event;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("bookings")
     private User user;
 
     private LocalDate bookingDate;
