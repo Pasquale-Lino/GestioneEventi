@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import pasquale.alberico.GestioneEventi.DTO.NewEventDTO;
 import pasquale.alberico.GestioneEventi.Entities.Event;
 import pasquale.alberico.GestioneEventi.Exceptions.NotFoundException;
@@ -12,6 +13,7 @@ import pasquale.alberico.GestioneEventi.Repositories.EventRepository;
 
 import java.util.UUID;
 
+@Service
 public class EventService {
     @Autowired private EventRepository eventRepository;
     public Page<Event> findAll(int page, int size, String sortBy){
