@@ -8,6 +8,7 @@ import pasquale.alberico.GestioneEventi.Entities.User;
 import pasquale.alberico.GestioneEventi.Exceptions.UnauthorizedException;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class JWTTools {
@@ -21,6 +22,13 @@ public class JWTTools {
                 .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
+    }
+    public UUID extractIdFromToken(String accessToken) {
+        return UUID.fromString(Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(secret.getBytes())).build()
+                .parseSignedClaims(accessToken)
+                .getPayload()
+                .getSubject());
     }
 
     public void verifyToken(String token){
