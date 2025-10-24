@@ -17,7 +17,7 @@ public class Booking {
     @Id
     @GeneratedValue
     private UUID id;
-    
+
     @Column(name = "event_id", insertable = false, updatable = false)
     private UUID eventId;
 
