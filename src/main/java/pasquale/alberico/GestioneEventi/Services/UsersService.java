@@ -16,15 +16,15 @@ import java.util.UUID;
 public class UsersService {
     @Autowired private UsersRepository usersRepository;
     @Autowired private PasswordEncoder passwordEncoder;
-    public User register(RegisterDTO payload){
-        usersRepository.findByEmail(payload.email()).ifPresent(u->{
+    public User register(RegisterDTO body){
+        usersRepository.findByEmail(body.email()).ifPresent(u->{
             try {
                 throw new BadRequestException("Email già in uso");
             } catch (BadRequestException e) {
                 throw new RuntimeException(e);
             }
         });
-        usersRepository.findByUsername(payload.username()).ifPresent(u -> {
+        usersRepository.findByUsername(body.username()).ifPresent(u -> {
             try {
                 throw new BadRequestException("Username already used");
             } catch (BadRequestException e) {
@@ -33,12 +33,12 @@ public class UsersService {
         });
 
         User u = new User();
-        u.setUsername(payload.username());
-        u.setName(payload.name());
-        u.setSurname(payload.surname());
-        u.setEmail(payload.email());
-        u.setPassword(passwordEncoder.encode(payload.password()));
-        u.setRole(payload.role() == null ? Role.USER : Role.valueOf(payload.role()));
+        u.setUsername(body.username());
+        u.setName(body.name());
+        u.setSurname(body.surname());
+        u.setEmail(body.email());
+        u.setPassword(passwordEncoder.encode(body.password()));
+        u.setRole(body.role() == null ? Role.USER : Role.valueOf(body.role()));
         return usersRepository.save(u);
     }
     public User findByEmail(String email){

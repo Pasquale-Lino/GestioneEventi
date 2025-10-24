@@ -30,6 +30,7 @@ public class JWTFilter extends OncePerRequestFilter {
         jwtTools.verifyToken(token);
 
         chain.doFilter(request, response);
+
     }
 
     @Override

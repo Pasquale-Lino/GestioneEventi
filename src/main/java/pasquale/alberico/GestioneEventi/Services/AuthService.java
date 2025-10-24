@@ -10,9 +10,12 @@ import pasquale.alberico.GestioneEventi.Security.JWTTools;
 
 @Service
 public class AuthService {
+
     @Autowired private UsersService usersService;
     @Autowired private JWTTools jwtTools;
     @Autowired private PasswordEncoder passwordEncoder;
+
+
     public String authenticateAndGetToken(LoginDTO body){
         User found= usersService.findByEmail(body.email());
         if (passwordEncoder.matches(body.password(), found.getPassword())){
